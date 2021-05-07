@@ -1,28 +1,30 @@
 <div class="table-responsive">
-	<table id="userList" class="table table-bordered table-hover table-striped">
+	<table id="evaluacionList" class="table table-bordered table-hover table-striped">
 		<thead class="thead-light">
 		<tr>
 			<th scope="col">#</th>
-			<th scope="col">First</th>
-			<th scope="col">Last</th>
-			<th scope="col">Username</th>
-			<th scope="col">E-mail</th>
+			<th scope="col">Secuencia</th>
+			<th scope="col">Evaluador</th>
+			<th scope="col">Supervisor</th>
+			<th scope="col">Nota</th>
+			<th scope="col">Estado</th>
 			<th></th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="user: ${userList}">
-			<td th:text="${user.id}"></td>
-			<td th:text="${user.firstName}"></td>
-			<td th:text="${user.lastName}"></td>
-			<td th:text="${user.username}"></td>
-			<td th:text="${user.email}"></td>
+		<tr th:each="evaluacion: ${evaluacionList}">
+			<td th:text="${evaluacion.id}"></td>
+			<td th:text="${evaluacion.secuencia}"></td>
+			<td th:text="${evaluacion.evaluador_id}"></td>
+			<td th:text="${evaluacion.supervisor_id}"></td>
+			<td th:text="${evaluacion.nota_final}"></td>
+			<td th:text="${evaluacion.estado_id}"></td>
 			<td>
 					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.username})">
-						<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
+						<a href="#" th:href="@{'/editEvaluacion/'+ ${evaluacion.id}}"><i class="fas fa-edit"></i></a>
 					</span>
 					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
-						<a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
+						<a href="#" th:onclick="'javascript:confirmDelete(\''+ ${evaluacion.id} +'\');'"><i class="fas fa-user-times"></i></a>
 					</span>
 			</td>
 		</tr>

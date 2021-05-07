@@ -1,27 +1,20 @@
 package com.sedmuc.init.controller;
 
-import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.sedmuc.init.dto.ChangePasswordForm;
-import com.sedmuc.init.entitys.User;
+import com.sedmuc.init.entitys.Evaluacion;
 import com.sedmuc.init.repository.AreaRepository;
 import com.sedmuc.init.repository.RoleRepository;
-import com.sedmuc.init.service.UserService;
+import com.sedmuc.init.service.EvaluacionService;
 
 @Controller
 public class EvaluacionController {
@@ -32,20 +25,45 @@ public class EvaluacionController {
 	AreaRepository areaRepository;
 	
 	@Autowired 
-	UserService userService;
-	
+	EvaluacionService evaluacionService;
 	
 	/*
 	 * Alta de evaluacion
 	 */
 	@GetMapping("/evaluacionForm")
-	public String getUserForm(Model model) {
-		model.addAttribute("userForm", new User());
-		model.addAttribute("areas",areaRepository.findAll());
-		model.addAttribute("roles",roleRepository.findAll());
-		model.addAttribute("userList", userService.getAllUsers());
+	public String getUserEvaluacion(Model model) {
+		model.addAttribute("evaluacionForm", new Evaluacion());
+		//model.addAttribute("areas",areaRepository.findAll());
+		//model.addAttribute("roles",roleRepository.findAll());
+		//model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
 		model.addAttribute("listTab","active");
 		return "evaluacion-form/evaluacion-view";
+	}
+	
+	/*
+	 * Utilizado en alta de la evaluacion  cuando se evia a grabar por post
+	 */
+	@PostMapping("/evaluacionForm")
+	public String postEvaluacionForm(@Valid @ModelAttribute("evaluacionForm")Evaluacion evaluacion, BindingResult result, ModelMap model) {
+			if(result.hasErrors()) {
+				model.addAttribute("evaluacionForm", evaluacion);
+				model.addAttribute("formTab","active");
+			}else {
+				try {//Aca tendras error porque este metodo no existe, pero lo crearemos en la siguiente seccion.
+					evaluacionService.createEvaluacion(evaluacion);
+					model.addAttribute("evaluacionForm", new Evaluacion());
+					model.addAttribute("listTab","active");
+				} catch (Exception e) {
+					model.addAttribute("formMessageError",e.getMessage());
+					model.addAttribute("evaluacionForm", evaluacion); 
+					model.addAttribute("formTab","active");
+				}
+			}
+
+			//model.addAttribute("areas",areaRepository.findAll());
+			//model.addAttribute("roles",roleRepository.findAll());
+			model.addAttribute("evaluacionList",evaluacionService.getAllEvaluaciones());
+			return "evaluacion-form/evaluacion-view";
 	}
 	
 }

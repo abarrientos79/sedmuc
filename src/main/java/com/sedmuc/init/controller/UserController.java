@@ -42,9 +42,8 @@ public class UserController {
 		return "index";
 	}
 	
-	/*
-	 * Alta del usuario
-	 */
+	
+	// Alta del usuario en blanco
 	@GetMapping("/userForm")
 	public String getUserForm(Model model) {
 		model.addAttribute("userForm", new User());
@@ -56,7 +55,7 @@ public class UserController {
 	}
 	
 	/*
-	 * Utilizado en alta de usuario para cuando se evia a grabar por post
+	 * Utilizado en alta de usuario para cuando se envia a grabar por post
 	 */
 	@PostMapping("/userForm")
 	public String postUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
@@ -79,7 +78,7 @@ public class UserController {
 			model.addAttribute("userList",userService.getAllUsers());
 			model.addAttribute("roles",roleRepository.findAll());
 			return "user-form/user-view";
-		}
+	}
 	
 	/*
 	 * Utilizado en la edicion de datos de un usuario cando se edita

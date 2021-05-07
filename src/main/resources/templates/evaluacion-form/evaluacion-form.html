@@ -1,86 +1,57 @@
 <div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
 
-<form id="userForm" th:object="${userForm}" th:action="${editMode} ?@{/editUser} :@{/userForm}" method="post" class="form" role="form" >
+<form id="userForm" th:object="${evaluacionForm}" th:action="${editMode} ?@{/editUser} :@{/evaluacionForm}" method="post" class="form" role="form" >
 
 <!--Es necesario para poder pasar la validacion del Model en el caso de la edicion-->
 	<input class="form-control" type=hidden name="password" value="xxxx" th:if="${editMode}">
 	<input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
-	<input class="form-control" type="hidden" th:field="${userForm.id}">
+	<input class="form-control" type="hidden" th:field="${evaluacionForm.id}">
 	
 	<div class="form-group row">
 	
-		<label th:text="Areas" class="col-lg-3 col-form-label form-control-label"></label>
-		
+		<label class="col-lg-3 col-form-label form-control-label">Secuencia</label>
 		<div class="col-lg-9">
-			<select class="form-control" th:field="${userForm.areas}" th:disabled="${disableFields}"> 	
-				<option th:each="area :${areas}" th:value="${area.id}" th:text="${area.description}">
-				</option>
-			</select>
-			<div class="alert-danger" th:if="${#fields.hasErrors('areas')}" th:errors="*{areas}">Areas Error</div>
+			<input class="form-control" type="text" th:field="${evaluacionForm.secuencia}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('secuencia')}" th:errors="*{firstName}">Name Error</div>
 		</div>
 		
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">First name</label>
+		<label class="col-lg-3 col-form-label form-control-label">Evaluador</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.firstName}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
+			<input class="form-control" type="text" th:field="${evaluacionForm.evaluador_id}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('evaluador_id')}" th:errors="*{evaluador_id}">Evaluador Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Last
-			name</label>
+		<label class="col-lg-3 col-form-label form-control-label">Supervidor</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.lastName}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</div>
+			<input class="form-control" type="text" th:field="${evaluacionForm.supervisor_id}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('supervisor_id')}" th:errors="*{supervisor_id}">Supervisor Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Email</label>
+		<label class="col-lg-3 col-form-label form-control-label">Nota Final</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="email" th:field="${userForm.email}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
+			<input class="form-control" type="text" th:field="${evaluacionForm.nota_final}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('nota_final')}" th:errors="*{nota_final}">nota Error</div>
 			
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Username</label>
+		<label class="col-lg-3 col-form-label form-control-label">Estado</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.username}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label th:text="Roles" class="col-lg-3 col-form-label form-control-label"></label>
-		<div class="col-lg-9">
-			<select class="form-control" size="3" th:field="${userForm.roles}" th:disabled="${disableFields}"> 	
-				<option th:each="role :${roles}" th:value="${role.id}" th:text="${role.name}">
-				</option>
-			</select>
-			<div class="alert-danger" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">Name Error</div>
-		</div>
-	</div>
-	<div class="form-group row" th:if="${editMode==null or editMode==false}">
-		<label class="col-lg-3 col-form-label form-control-label">Password</label>
-		<div class="col-lg-9">
-			<input class="form-control" type="password" th:field="${userForm.password}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
-		</div>
-	</div>
-	<div class="form-group row" th:if="${editMode==null or editMode==false}">
-		<label class="col-lg-3 col-form-label form-control-label">Confirm</label>
-		<div class="col-lg-9">
-			<input class="form-control" type="password" th:field="${userForm.confirmPassword}" th:disabled="${disableFields}" >
-			<div class="alert-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
+			<input class="form-control" type="text" th:field="${evaluacionForm.estado_id}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('estado_id')}" th:errors="*{estado_id}">Estado Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-lg-12 text-center">
 			<input type="reset" class="btn btn-secondary" value="Cancel" th:if="${editMode==null or editMode==false}">
-			<a class="btn btn-secondary"  th:href="@{'/editUser/cancel'}" th:if="${editMode}">Cancel</a>
-			<button type="button" class="btn btn-secondary" data-toggle="modal" th:if="${editMode}" data-target="#changePasswordModal">Change Password</button>
+			<a class="btn btn-secondary"  th:href="@{'/evaluaciontUser/cancel'}" th:if="${editMode}">Cancel</a>
+			<!--<button type="button" class="btn btn-secondary" data-toggle="modal" th:if="${editMode}" data-target="#changePasswordModal">Change Password</button>-->
 			<input type="submit" class="btn btn-primary"
-				value="Save Changes" th:value="${editMode}?'Save User':'Create User'">
+				value="Save Changes" th:value="${editMode}?'Grabar':'Crear'">
 		</div>
 	</div>
 	<div class="alert-primary" role="alert" th:if="${formMessageError}" th:text="${formMessageError}">Name Error</div>
