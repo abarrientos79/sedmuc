@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.sedmuc.init.dto.ChangePasswordForm;
 import com.sedmuc.init.entitys.User;
+import com.sedmuc.init.repository.AreaRepository;
 import com.sedmuc.init.repository.RoleRepository;
 import com.sedmuc.init.service.UserService;
 
@@ -27,23 +28,36 @@ public class UserController {
 	@Autowired
 	RoleRepository roleRepository;
 	
+	@Autowired
+	AreaRepository areaRepository;
+	
 	@Autowired 
 	UserService userService;
 	
+	/*
+	 * Utilizado en loguin
+	 */
 	@GetMapping({"/","/login"})
 	public String index() {
 		return "index";
 	}
 	
+	/*
+	 * Alta del usuario
+	 */
 	@GetMapping("/userForm")
 	public String getUserForm(Model model) {
 		model.addAttribute("userForm", new User());
+		model.addAttribute("areas",areaRepository.findAll());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("listTab","active");
 		return "user-form/user-view";
 	}
 	
+	/*
+	 * Utilizado en alta de usuario para cuando se evia a grabar por post
+	 */
 	@PostMapping("/userForm")
 	public String postUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 			if(result.hasErrors()) {
@@ -61,16 +75,21 @@ public class UserController {
 				}
 			}
 
+			model.addAttribute("areas",areaRepository.findAll());
 			model.addAttribute("userList", userService.getAllUsers());
 			model.addAttribute("roles",roleRepository.findAll());
 			return "user-form/user-view";
 		}
 	
+	/*
+	 * Utilizado en la edicion de datos de un usuario cando se edita
+	 */
 	@GetMapping("/editUser/{id}")
 	public String getEditUserForm(Model model, @PathVariable(name="id") Long id) throws Exception {
 		User user = userService.getUserById(id);
 		
 		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("areas",areaRepository.findAll());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userForm", user);
 		model.addAttribute("formTab","active");//Activa el tab del formulario.
@@ -80,6 +99,10 @@ public class UserController {
 		return "user-form/user-view";
 	}
 	
+	
+	/*
+	 * Utilizado en la edicion del change password por post
+	 */
 	@PostMapping("/editUser")
 	public String postEditUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
@@ -97,6 +120,7 @@ public class UserController {
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
 				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("areas",areaRepository.findAll());
 				model.addAttribute("roles",roleRepository.findAll());
 				model.addAttribute("editMode","true");
 				model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
@@ -104,16 +128,23 @@ public class UserController {
 		}
 		
 		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("areas",areaRepository.findAll());
 		model.addAttribute("roles",roleRepository.findAll());
 		return "user-form/user-view";
 		
 	}
 	
+	/*
+	 * Utilizado en el boton cacelar del usuario
+	 */
 	@GetMapping("/editUser/cancel")
 	public String cancelEditUser(ModelMap model) {
 		return "redirect:/userForm";
 	}
 	
+	/*
+	 * Utilizado en el boton eliminar usuario
+	 */
 	@GetMapping("/deleteUser/{id}")
 	public String deleteUser(Model model, @PathVariable(name="id") Long id) {
 		try {

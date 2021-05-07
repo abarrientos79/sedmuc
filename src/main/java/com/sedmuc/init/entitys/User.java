@@ -3,6 +3,7 @@ package com.sedmuc.init.entitys;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -62,7 +64,11 @@ public class User implements Serializable{
 	@JoinTable(name="user_roles"
 		,joinColumns=@JoinColumn(name="user_id")
 		,inverseJoinColumns=@JoinColumn(name="role_id"))
-	private Set<Role> roles;
+	private Set<Role> roles; //Se utiliza set porque viene mas de un Role
+	
+	@JoinColumn(name="area_id")
+	@OneToOne(cascade=CascadeType.ALL)
+	private Area area;  // En este caso es solo un area
 	
 	public User() {	}
 	
@@ -70,13 +76,14 @@ public class User implements Serializable{
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", username=" + username + ", password=" + password + ", confirmPassword=" + confirmPassword
-				+ ", roles=" + roles + "]";
+				+ ", roles=" + roles + ", area=" + area + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((area == null) ? 0 : area.hashCode());
 		result = prime * result + ((confirmPassword == null) ? 0 : confirmPassword.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
@@ -97,6 +104,11 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (area == null) {
+			if (other.area != null)
+				return false;
+		} else if (!area.equals(other.area))
+			return false;
 		if (confirmPassword == null) {
 			if (other.confirmPassword != null)
 				return false;
@@ -198,6 +210,14 @@ public class User implements Serializable{
 
 	public Set<Role> getRoles() {
 		return roles;
+	}
+
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
 	public void setRoles(Set<Role> roles) {

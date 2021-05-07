@@ -79,6 +79,7 @@ public class UserServiceImpl implements UserService{
 		to.setLastName(from.getLastName());
 		to.setEmail(from.getEmail());
 		to.setRoles(from.getRoles());
+		to.setArea(from.getArea());
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
