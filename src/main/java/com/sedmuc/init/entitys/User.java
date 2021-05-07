@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -66,6 +64,7 @@ public class User implements Serializable{
 		,joinColumns=@JoinColumn(name="user_id")
 		,inverseJoinColumns=@JoinColumn(name="role_id"))
 	private Set<Role> roles; //Se utiliza set porque viene mas de un Role
+	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="user_areas"
