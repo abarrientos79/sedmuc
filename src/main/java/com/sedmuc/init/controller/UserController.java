@@ -70,13 +70,13 @@ public class UserController {
 					model.addAttribute("listTab","active");
 				} catch (Exception e) {
 					model.addAttribute("formMessageError",e.getMessage());
-					model.addAttribute("userForm", user);
+					model.addAttribute("userForm", user); 
 					model.addAttribute("formTab","active");
 				}
 			}
 
 			model.addAttribute("areas",areaRepository.findAll());
-			model.addAttribute("userList", userService.getAllUsers());
+			model.addAttribute("userList",userService.getAllUsers());
 			model.addAttribute("roles",roleRepository.findAll());
 			return "user-form/user-view";
 		}

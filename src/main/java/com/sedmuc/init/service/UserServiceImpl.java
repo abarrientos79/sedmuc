@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.sedmuc.init.dto.ChangePasswordForm;
 import com.sedmuc.init.entitys.User;
+import com.sedmuc.init.repository.AreaRepository;
 import com.sedmuc.init.repository.UserRepository;
 
 @Service
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	UserRepository userRepository;
+	
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -74,12 +76,12 @@ public class UserServiceImpl implements UserService{
 	 * @param to
 	 */
 	protected void mapUser(User from,User to) {
+		to.setAreas(from.getAreas());
 		to.setUsername(from.getUsername());
 		to.setFirstName(from.getFirstName());
 		to.setLastName(from.getLastName());
 		to.setEmail(from.getEmail());
 		to.setRoles(from.getRoles());
-		to.setArea(from.getArea());
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
