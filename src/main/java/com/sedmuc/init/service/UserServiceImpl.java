@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService{
 	public Iterable<User> getAllUsers(){
 		return userRepository.findAll();
 	}
+	
+	public User findOneByUsername(String userBuscar){
+		return userRepository.findOneByUsername(userBuscar);
+	}
+
 
 
 	private boolean checkUsernameAvailable(User user) throws Exception {
@@ -148,5 +153,9 @@ public class UserServiceImpl implements UserService{
 		
 		return myUser;
 	}
+
+	
+
+
 }
 

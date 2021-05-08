@@ -24,6 +24,7 @@ public class EvaluacionController {
 	@Autowired
 	AreaRepository areaRepository;
 	
+	
 	@Autowired 
 	EvaluacionService evaluacionService;
 	
@@ -35,11 +36,14 @@ public class EvaluacionController {
 		model.addAttribute("evaluacionForm", new Evaluacion());
 		//model.addAttribute("areas",areaRepository.findAll());
 		//model.addAttribute("roles",roleRepository.findAll());
-		//model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
+		model.addAttribute("userLogeado", evaluacionService.findOneByUsername("agomez"));
+		//Trae las Evaluacion que lugo utiliza la lista
+		model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
 		model.addAttribute("listTab","active");
 		return "evaluacion-form/evaluacion-view";
 	}
 	
+
 	/*
 	 * Utilizado en alta de la evaluacion  cuando se evia a grabar por post
 	 */

@@ -12,7 +12,7 @@
 		<label class="col-lg-3 col-form-label form-control-label">Secuencia</label>
 		<div class="col-lg-9">
 			<input class="form-control" type="text" th:field="${evaluacionForm.secuencia}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('secuencia')}" th:errors="*{firstName}">Name Error</div>
+			<div class="alert-danger" th:if="${#fields.hasErrors('secuencia')}" th:errors="*{secuencia}">Name Error</div>
 		</div>
 		
 	</div>

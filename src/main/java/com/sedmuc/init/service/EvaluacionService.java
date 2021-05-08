@@ -1,5 +1,7 @@
 package com.sedmuc.init.service;
 
+import java.util.Optional;
+
 import com.sedmuc.init.dto.ChangePasswordForm;
 //import com.sedmuc.init.dto.ChangePasswordForm;
 import com.sedmuc.init.entitys.Evaluacion;
@@ -10,6 +12,8 @@ import com.sedmuc.init.entitys.User;
 public interface EvaluacionService {
 
 	public Iterable<Evaluacion> getAllEvaluaciones();
+	
+	public User findOneByUsername(String user);
 
 	public Evaluacion createEvaluacion(Evaluacion formEvaluacion) throws Exception;
 
@@ -18,7 +22,7 @@ public interface EvaluacionService {
 	public Evaluacion updateEvaluacion(Evaluacion evaluacion) throws Exception;
 	
 	public void deleteEvaluacion(Long id) throws Exception;
+
 	
-	//public Evaluacion changeSecuencia(ChangeSecuenciaForm form) throws Exception;
 		
 }

@@ -1,5 +1,7 @@
 package com.sedmuc.init.service;
 
+import java.util.Optional;
+
 import com.sedmuc.init.dto.ChangePasswordForm;
 import com.sedmuc.init.entitys.User;
 
@@ -7,6 +9,9 @@ import com.sedmuc.init.entitys.User;
 public interface UserService {
 
 	public Iterable<User> getAllUsers();
+	
+	
+	public User findOneByUsername(String username) throws Exception;
 		
 	public User createUser(User formUser) throws Exception;
 	

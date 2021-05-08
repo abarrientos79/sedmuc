@@ -35,7 +35,7 @@
 	<script type="text/javascript">
 	    $(document).ready(function() {
 	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
-	        $('#userList').DataTable();
+	        $('#evaluacionList').DataTable();
 	    } );
 	</script>
 </head>
@@ -55,6 +55,10 @@
 			<li class="nav-item">
 			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span> logout </span> <span class="float-right"><i class="fas fa-sign-out-alt"></i></span></a>				   	
 			</li>
+			<li class="nav-item">
+			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${userLogeado.getEmail()}"></span></a>				   	
+			</li>
+			
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show" th:classappend=" ${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">

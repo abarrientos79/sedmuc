@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 //import org.hibernate.annotations.BatchSize;
@@ -39,7 +40,7 @@ public class User implements Serializable{
 	private String firstName;
 	
 	@Column 
-	@NotBlank
+	@NotNull
 	@Size(min=3,max=20,message="No se cumple con la reglas del Tamaño")
 	private String lastName;
 	

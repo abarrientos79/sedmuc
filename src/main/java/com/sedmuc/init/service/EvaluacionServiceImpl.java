@@ -32,6 +32,11 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 	public Iterable<Evaluacion> getAllEvaluaciones(){
 		return evaluacionRepository.findAll();
 	}
+	
+	
+	public User findOneByUsername(String user){
+		return userRepository.findOneByUsername(user);
+	}
 
 
 	@Override
@@ -111,6 +116,7 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 		
 		return myUser;
 	}
+
 
 
 }
