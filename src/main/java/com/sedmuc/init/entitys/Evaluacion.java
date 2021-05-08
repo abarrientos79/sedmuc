@@ -1,16 +1,15 @@
 package com.sedmuc.init.entitys;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -39,6 +38,55 @@ public class Evaluacion implements Serializable {
 	@Column
 	private Long estado_id;
 	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getSecuencia() {
+		return secuencia;
+	}
+
+	public void setSecuencia(Long secuencia) {
+		this.secuencia = secuencia;
+	}
+
+	public Long getEvaluador_id() {
+		return evaluador_id;
+	}
+
+	public void setEvaluador_id(Long evaluador_id) {
+		this.evaluador_id = evaluador_id;
+	}
+
+	public Long getSupervisor_id() {
+		return supervisor_id;
+	}
+
+	public void setSupervisor_id(Long supervisor_id) {
+		this.supervisor_id = supervisor_id;
+	}
+
+	public Long getNota_final() {
+		return nota_final;
+	}
+
+	public void setNota_final(Long nota_final) {
+		this.nota_final = nota_final;
+	}
+
+	public Long getEstado_id() {
+		return estado_id;
+	}
+
+	public void setEstado_id(Long estado_id) {
+		this.estado_id = estado_id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -51,7 +99,6 @@ public class Evaluacion implements Serializable {
 		result = prime * result + ((supervisor_id == null) ? 0 : supervisor_id.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -95,74 +142,12 @@ public class Evaluacion implements Serializable {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Evaluacion [id=" + id + ", secuencia=" + secuencia + ", evaluador_id=" + evaluador_id
 				+ ", supervisor_id=" + supervisor_id + ", nota_final=" + nota_final + ", estado_id=" + estado_id + "]";
 	}
 
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public Long getSecuencia() {
-		return secuencia;
-	}
-
-
-	public void setSecuencia(Long secuencia) {
-		this.secuencia = secuencia;
-	}
-
-
-	public Long getEvaluador_id() {
-		return evaluador_id;
-	}
-
-
-	public void setEvaluador_id(Long evaluador_id) {
-		this.evaluador_id = evaluador_id;
-	}
-
-
-	public Long getSupervisor_id() {
-		return supervisor_id;
-	}
-
-
-	public void setSupervisor_id(Long supervisor_id) {
-		this.supervisor_id = supervisor_id;
-	}
-
-
-	public Long getNota_final() {
-		return nota_final;
-	}
-
-
-	public void setNota_final(Long nota_final) {
-		this.nota_final = nota_final;
-	}
-
-
-	public Long getEstado_id() {
-		return estado_id;
-	}
-
-
-	public void setEstado_id(Long estado_id) {
-		this.estado_id = estado_id;
-	}
-
-
 	
-	
+
 }

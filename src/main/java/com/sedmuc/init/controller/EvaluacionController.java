@@ -36,7 +36,7 @@ public class EvaluacionController {
 		model.addAttribute("evaluacionForm", new Evaluacion());
 		//model.addAttribute("areas",areaRepository.findAll());
 		//model.addAttribute("roles",roleRepository.findAll());
-		model.addAttribute("userLogeado", evaluacionService.findOneByUsername("agomez"));
+		//model.addAttribute("userLogeado", evaluacionService.findOneByUsername("agomez"));
 		//Trae las Evaluacion que lugo utiliza la lista
 		model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
 		model.addAttribute("listTab","active");
@@ -56,6 +56,7 @@ public class EvaluacionController {
 				try {//Aca tendras error porque este metodo no existe, pero lo crearemos en la siguiente seccion.
 					evaluacionService.createEvaluacion(evaluacion);
 					model.addAttribute("evaluacionForm", new Evaluacion());
+					//model.addAttribute("userLogeado", evaluacionService.findOneByUsername("agomez"));
 					model.addAttribute("listTab","active");
 				} catch (Exception e) {
 					model.addAttribute("formMessageError",e.getMessage());
