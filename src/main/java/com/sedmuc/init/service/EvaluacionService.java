@@ -14,6 +14,8 @@ public interface EvaluacionService {
 	public Iterable<Evaluacion> getAllEvaluaciones();
 	
 	public User findOneByUsername(String user);
+	
+	public Iterable<User> findAllUsers();
 
 	public Evaluacion createEvaluacion(Evaluacion formEvaluacion) throws Exception;
 

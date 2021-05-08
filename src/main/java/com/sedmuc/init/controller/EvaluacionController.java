@@ -37,6 +37,7 @@ public class EvaluacionController {
 		//model.addAttribute("areas",areaRepository.findAll());
 		//model.addAttribute("roles",roleRepository.findAll());
 		//model.addAttribute("userLogeado", evaluacionService.findOneByUsername("agomez"));
+		model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
 		//Trae las Evaluacion que lugo utiliza la lista
 		model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
 		model.addAttribute("listTab","active");

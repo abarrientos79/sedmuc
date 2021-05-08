@@ -2,12 +2,15 @@ package com.sedmuc.init.entitys;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
@@ -27,7 +30,7 @@ public class Evaluacion implements Serializable {
 	private Long secuencia;
 	
 	@Column
-	private Long evaluador_id;
+	private String evaluador;
 	
 	@Column
 	private Long supervisor_id;
@@ -37,7 +40,6 @@ public class Evaluacion implements Serializable {
 
 	@Column
 	private Long estado_id;
-	
 
 	public Long getId() {
 		return id;
@@ -55,12 +57,12 @@ public class Evaluacion implements Serializable {
 		this.secuencia = secuencia;
 	}
 
-	public Long getEvaluador_id() {
-		return evaluador_id;
+	public String getEvaluador() {
+		return evaluador;
 	}
 
-	public void setEvaluador_id(Long evaluador_id) {
-		this.evaluador_id = evaluador_id;
+	public void setEvaluador(String evaluador) {
+		this.evaluador = evaluador;
 	}
 
 	public Long getSupervisor_id() {
@@ -87,12 +89,16 @@ public class Evaluacion implements Serializable {
 		this.estado_id = estado_id;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((estado_id == null) ? 0 : estado_id.hashCode());
-		result = prime * result + ((evaluador_id == null) ? 0 : evaluador_id.hashCode());
+		result = prime * result + ((evaluador == null) ? 0 : evaluador.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nota_final == null) ? 0 : nota_final.hashCode());
 		result = prime * result + ((secuencia == null) ? 0 : secuencia.hashCode());
@@ -114,10 +120,10 @@ public class Evaluacion implements Serializable {
 				return false;
 		} else if (!estado_id.equals(other.estado_id))
 			return false;
-		if (evaluador_id == null) {
-			if (other.evaluador_id != null)
+		if (evaluador == null) {
+			if (other.evaluador != null)
 				return false;
-		} else if (!evaluador_id.equals(other.evaluador_id))
+		} else if (!evaluador.equals(other.evaluador))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -144,10 +150,9 @@ public class Evaluacion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Evaluacion [id=" + id + ", secuencia=" + secuencia + ", evaluador_id=" + evaluador_id
-				+ ", supervisor_id=" + supervisor_id + ", nota_final=" + nota_final + ", estado_id=" + estado_id + "]";
+		return "Evaluacion [id=" + id + ", secuencia=" + secuencia + ", evaluador=" + evaluador + ", supervisor_id="
+				+ supervisor_id + ", nota_final=" + nota_final + ", estado_id=" + estado_id + "]";
 	}
 
 	
-
 }

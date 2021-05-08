@@ -38,6 +38,9 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 		return userRepository.findOneByUsername(user);
 	}
 
+	public Iterable<User> findAllUsers(){
+		return userRepository.findAll();
+	}
 
 	@Override
 	public Evaluacion createEvaluacion(Evaluacion evaluacion) throws Exception {
@@ -67,7 +70,7 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 	 */
 	protected void mapEvaluacion(Evaluacion from,Evaluacion to) {
 		to.setSecuencia(from.getSecuencia());
-		to.setEvaluador_id(from.getNota_final());
+		to.setEvaluador(from.getEvaluador());
 		to.setSupervisor_id(from.getSupervisor_id());
 		to.setNota_final(from.getNota_final());
 		to.setEstado_id(from.getEstado_id());
