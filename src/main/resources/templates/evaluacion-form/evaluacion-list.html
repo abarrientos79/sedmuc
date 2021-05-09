@@ -16,9 +16,16 @@
 			<td th:text="${evaluacion.id}"></td>
 			<td th:text="${evaluacion.secuencia}"></td>
 			<td th:text="${evaluacion.evaluador}"></td>
-			<td th:text="${evaluacion.supervisor_id}"></td>
+			<td th:text="${evaluacion.evaluado}"></td>
 			<td th:text="${evaluacion.nota_final}"></td>
-			<td th:text="${evaluacion.estado_id}"></td>
+			<td th:switch="${evaluacion.estado_id}">
+				<span th:case="'1'"><i class="fas fa-file"></i></span>
+				<span th:case="'2'"><i class="fas fa-file-alt"></i></span>
+				<span th:case="'3'"><i class="fas fa-address-card"></i></span>
+				<span th:case="'4'"><i class="fas fa-frown"></i></span>
+				<span th:case="'5'"><i class="fas fa-id-card"></i></span>
+				
+				
 			<td>
 					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} )">
 						<a href="#" th:href="@{'/editEvaluacion/'+ ${evaluacion.id}}"><i class="fas fa-edit"></i></a>

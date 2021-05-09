@@ -3,15 +3,15 @@
 <form id="userForm" th:object="${userForm}" th:action="${editMode} ?@{/editUser} :@{/userForm}" method="post" class="form" role="form" >
 
 <!--Es necesario para poder pasar la validacion del Model en el caso de la edicion-->
-	<input class="form-control" type=hidden name="password" value="xxxx" th:if="${editMode}">
-	<input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
-	<input class="form-control" type="hidden" th:field="${userForm.id}">
+	<input class="form-control form-control-sm" type=hidden name="password" value="xxxx" th:if="${editMode}">
+	<input class="form-control form-control-sm" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
+	<input class="form-control form-control-sm" type="hidden" th:field="${userForm.id}">
 	
 	<div class="form-group row">
-		<label th:text="Areas" class="col-lg-3 col-form-label form-control-label"></label>
+		<label th:text="Areas" class="col-sm-3 col-form-label form-control-label-sm"></label>
 		
 		<div class="col-lg-9">
-			<select class="form-control" th:field="${userForm.areas}" th:disabled="${disableFields}"> 	
+			<select class="form-control form-control-sm" th:field="${userForm.areas}" th:disabled="${disableFields}"> 	
 				<option th:each="area :${areas}" th:value="${area.id}" th:text="${area.description}">
 				</option>
 			</select>
@@ -20,39 +20,39 @@
 		
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">First name</label>
+		<label class="col-sm-3 col-form-label form-control-label-sm">First name</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.firstName}" th:disabled="${disableFields}">
+			<input class="form-control form-control-sm" type="text" th:field="${userForm.firstName}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Last
+		<label class="col-sm-3 col-form-label form-control-label-sm">Last
 			name</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.lastName}" th:disabled="${disableFields}">
+			<input class="form-control form-control-sm" type="text" th:field="${userForm.lastName}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Email</label>
+		<label class="col-sm-3 col-form-label form-control-label-sm">Email</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="email" th:field="${userForm.email}" th:disabled="${disableFields}">
+			<input class="form-control form-control-sm" type="email" th:field="${userForm.email}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
 			
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Username</label>
+		<label class="col-sm-3 col-form-label form-control-label-sm">Username</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.username}" th:disabled="${disableFields}">
+			<input class="form-control form-control-sm" type="text" th:field="${userForm.username}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
-		<label th:text="Roles" class="col-lg-3 col-form-label form-control-label"></label>
+		<label th:text="Roles" class="col-sm-3 col-form-label form-control-label-sm"></label>
 		<div class="col-lg-9">
-			<select class="form-control" size="3" th:field="${userForm.roles}" th:disabled="${disableFields}"> 	
+			<select class="form-control form-control-sm" size="3" th:field="${userForm.roles}" th:disabled="${disableFields}"> 	
 				<option th:each="role :${roles}" th:value="${role.id}" th:text="${role.name}">
 				</option>
 			</select>
@@ -60,16 +60,16 @@
 		</div>
 	</div>
 	<div class="form-group row" th:if="${editMode==null or editMode==false}">
-		<label class="col-lg-3 col-form-label form-control-label">Password</label>
+		<label class="col-sm-3 col-form-label form-control-label-sm">Password</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="password" th:field="${userForm.password}" th:disabled="${disableFields}">
+			<input class="form-control form-control-sm" type="password" th:field="${userForm.password}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row" th:if="${editMode==null or editMode==false}">
-		<label class="col-lg-3 col-form-label form-control-label">Confirm</label>
+		<label class="col-sm-3 col-form-label form-control-label-sm">Confirm</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="password" th:field="${userForm.confirmPassword}" th:disabled="${disableFields}" >
+			<input class="form-control form-control-sm" type="password" th:field="${userForm.confirmPassword}" th:disabled="${disableFields}" >
 			<div class="alert-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
 		</div>
 	</div>

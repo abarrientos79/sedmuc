@@ -8,11 +8,14 @@
 	<input class="form-control" type="hidden" th:field="${evaluacionForm.id}">
 	
 	<div class="form-group row">
-	
-		<label class="col-lg-3 col-form-label form-control-label">Secuencia</label>
+		<label th:text="Secuencia" class="col-lg-3 col-form-label form-control-label"></label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${evaluacionForm.secuencia}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('secuencia')}" th:errors="*{secuencia}">Name Error</div>
+			<select class="form-control" th:field="${evaluacionForm.secuencia}" th:disabled="${disableFields}"> 	
+				<option value="1">Secuancia 1</option> 	
+				<option value="2">Secuancia 2</option>
+				<option value="3">Secuancia 3</option>
+			</select>
+			<div class="alert-danger" th:if="${#fields.hasErrors('secuencia')}" th:errors="*{secuencia}">Secuencia Error</div>
 		</div>
 		
 	</div>
@@ -30,32 +33,40 @@
 	</div>
 	
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Supervidor</label>
+		<label th:text="Evaluado" class="col-lg-3 col-form-label form-control-label"></label>
+		
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${evaluacionForm.supervisor_id}" th:disabled="${disableFields}">
-			<div class="alert-danger" th:if="${#fields.hasErrors('supervisor_id')}" th:errors="*{supervisor_id}">Supervisor Error</div>
+			<select class="form-control" th:field="${evaluacionForm.evaluado}" th:disabled="${disableFields}"> 	
+				<option th:each="user :${listaUsuarios}" th:value="${user.username}" th:text="${user.username}">
+				</option>
+			</select>
+			<div class="alert-danger" th:if="${#fields.hasErrors('evaluado')}" th:errors="*{evaluado}">Evluador Error</div>
 		</div>
+		
 	</div>
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Nota Final</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${evaluacionForm.nota_final}" th:disabled="${disableFields}">
+			<input class="form-control" type="text" th:field="${evaluacionForm.nota_final}" th:disabled="${disableFields}"  placeholder="De 1 a 100">
 			<div class="alert-danger" th:if="${#fields.hasErrors('nota_final')}" th:errors="*{nota_final}">nota Error</div>
 			
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Estado</label>
+		<label th:text="Estado" class="col-lg-3 col-form-label form-control-label"></label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${evaluacionForm.estado_id}" th:disabled="${disableFields}">
+			<select class="form-control" th:field="${evaluacionForm.estado_id}" th:disabled="${disableFields}"> 	
+				<option th:each="estado :${listaEstados}" th:value="${estado.id}" th:text="${estado.descripcion}">
+				</option>
+			</select>
 			<div class="alert-danger" th:if="${#fields.hasErrors('estado_id')}" th:errors="*{estado_id}">Estado Error</div>
 		</div>
+		
 	</div>
 	<div class="form-group row">
 		<div class="col-lg-12 text-center">
 			<input type="reset" class="btn btn-secondary" value="Cancel" th:if="${editMode==null or editMode==false}">
 			<a class="btn btn-secondary"  th:href="@{'/evaluaciontUser/cancel'}" th:if="${editMode}">Cancel</a>
-			<!--<button type="button" class="btn btn-secondary" data-toggle="modal" th:if="${editMode}" data-target="#changePasswordModal">Change Password</button>-->
 			<input type="submit" class="btn btn-primary"
 				value="Save Changes" th:value="${editMode}?'Grabar':'Crear'">
 		</div>

@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.sedmuc.init.dto.ChangePasswordForm;
 import com.sedmuc.init.entitys.Evaluacion;
+import com.sedmuc.init.entitys.Evaluacion_Estado;
 import com.sedmuc.init.entitys.User;
 import com.sedmuc.init.repository.AreaRepository;
 import com.sedmuc.init.repository.EvaluacionRepository;
+import com.sedmuc.init.repository.Evaluacion_EstadoRepository;
 import com.sedmuc.init.repository.UserRepository;
 
 @Service
@@ -25,6 +27,9 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	Evaluacion_EstadoRepository evaluacion_EstadoRepository;
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -40,6 +45,10 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 
 	public Iterable<User> findAllUsers(){
 		return userRepository.findAll();
+	}
+	
+	public Iterable<Evaluacion_Estado> findAllEvaluacion_Estado() {
+		return evaluacion_EstadoRepository.findAll();
 	}
 
 	@Override
@@ -71,7 +80,7 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 	protected void mapEvaluacion(Evaluacion from,Evaluacion to) {
 		to.setSecuencia(from.getSecuencia());
 		to.setEvaluador(from.getEvaluador());
-		to.setSupervisor_id(from.getSupervisor_id());
+		to.setEvaluado(from.getEvaluado());
 		to.setNota_final(from.getNota_final());
 		to.setEstado_id(from.getEstado_id());
 	}
@@ -119,6 +128,9 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 		
 		return myUser;
 	}
+
+
+	
 
 
 

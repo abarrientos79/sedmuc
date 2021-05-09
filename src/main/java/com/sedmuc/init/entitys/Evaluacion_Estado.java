@@ -14,8 +14,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Evaluacion_Estado implements Serializable {
 
-	private static final long serialVersionUID = -7129022574976089696L;
 
+	private static final long serialVersionUID = 299955606621128858L;
 
 		@Id
 		@GeneratedValue(strategy=GenerationType.AUTO, generator="native")

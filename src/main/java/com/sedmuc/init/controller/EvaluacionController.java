@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sedmuc.init.entitys.Evaluacion;
 import com.sedmuc.init.repository.AreaRepository;
-import com.sedmuc.init.repository.RoleRepository;
 import com.sedmuc.init.service.EvaluacionService;
 
 @Controller
 public class EvaluacionController {
-	@Autowired
-	RoleRepository roleRepository;
+	//@Autowired
+	//RoleRepository roleRepository;
 	
 	@Autowired
 	AreaRepository areaRepository;
@@ -27,6 +26,7 @@ public class EvaluacionController {
 	
 	@Autowired 
 	EvaluacionService evaluacionService;
+	
 	
 	/*
 	 * Alta de evaluacion
@@ -37,9 +37,10 @@ public class EvaluacionController {
 		//model.addAttribute("areas",areaRepository.findAll());
 		//model.addAttribute("roles",roleRepository.findAll());
 		//model.addAttribute("userLogeado", evaluacionService.findOneByUsername("agomez"));
-		model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
 		//Trae las Evaluacion que lugo utiliza la lista
 		model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
+		model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
+		model.addAttribute("listaEstados", evaluacionService.findAllEvaluacion_Estado());
 		model.addAttribute("listTab","active");
 		return "evaluacion-form/evaluacion-view";
 	}
@@ -69,6 +70,8 @@ public class EvaluacionController {
 			//model.addAttribute("areas",areaRepository.findAll());
 			//model.addAttribute("roles",roleRepository.findAll());
 			model.addAttribute("evaluacionList",evaluacionService.getAllEvaluaciones());
+			model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
+			model.addAttribute("listaEstados", evaluacionService.findAllEvaluacion_Estado());
 			return "evaluacion-form/evaluacion-view";
 	}
 	

@@ -1,17 +1,11 @@
 package com.sedmuc.init.entitys;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,7 +27,7 @@ public class Evaluacion implements Serializable {
 	private String evaluador;
 	
 	@Column
-	private Long supervisor_id;
+	private String evaluado;
 	
 	@Column
 	private Long nota_final;
@@ -65,12 +59,12 @@ public class Evaluacion implements Serializable {
 		this.evaluador = evaluador;
 	}
 
-	public Long getSupervisor_id() {
-		return supervisor_id;
+	public String getEvaluado() {
+		return evaluado;
 	}
 
-	public void setSupervisor_id(Long supervisor_id) {
-		this.supervisor_id = supervisor_id;
+	public void setEvaluado(String evaluado) {
+		this.evaluado = evaluado;
 	}
 
 	public Long getNota_final() {
@@ -102,7 +96,7 @@ public class Evaluacion implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nota_final == null) ? 0 : nota_final.hashCode());
 		result = prime * result + ((secuencia == null) ? 0 : secuencia.hashCode());
-		result = prime * result + ((supervisor_id == null) ? 0 : supervisor_id.hashCode());
+		result = prime * result + ((evaluado == null) ? 0 : evaluado.hashCode());
 		return result;
 	}
 
@@ -140,18 +134,18 @@ public class Evaluacion implements Serializable {
 				return false;
 		} else if (!secuencia.equals(other.secuencia))
 			return false;
-		if (supervisor_id == null) {
-			if (other.supervisor_id != null)
+		if (evaluado == null) {
+			if (other.evaluado != null)
 				return false;
-		} else if (!supervisor_id.equals(other.supervisor_id))
+		} else if (!evaluado.equals(other.evaluado))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Evaluacion [id=" + id + ", secuencia=" + secuencia + ", evaluador=" + evaluador + ", supervisor_id="
-				+ supervisor_id + ", nota_final=" + nota_final + ", estado_id=" + estado_id + "]";
+		return "Evaluacion [id=" + id + ", secuencia=" + secuencia + ", evaluador=" + evaluador + ", evaluado="
+				+ evaluado + ", nota_final=" + nota_final + ", estado_id=" + estado_id + "]";
 	}
 
 	
