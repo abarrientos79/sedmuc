@@ -1,7 +1,5 @@
 package com.sedmuc.init.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,11 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;	
 import org.springframework.stereotype.Service;
 
-import com.sedmuc.init.dto.ChangePasswordForm;
 import com.sedmuc.init.entitys.Evaluacion;
 import com.sedmuc.init.entitys.Evaluacion_Estado;
 import com.sedmuc.init.entitys.User;
-import com.sedmuc.init.repository.AreaRepository;
 import com.sedmuc.init.repository.EvaluacionRepository;
 import com.sedmuc.init.repository.Evaluacion_EstadoRepository;
 import com.sedmuc.init.repository.UserRepository;
@@ -82,19 +78,21 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 		to.setEvaluador(from.getEvaluador());
 		to.setEvaluado(from.getEvaluado());
 		to.setNota_final(from.getNota_final());
+		to.setObservaciones(from.getObservaciones());
 		to.setEstado_id(from.getEstado_id());
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	//Estos roles son los que puede realizar el delete de la evaluacion
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EVALUADOR')")
 	public void deleteEvaluacion(Long id) throws Exception {
 		Evaluacion evaluacion = evaluacionRepository.findById(id)
-				.orElseThrow(() -> new Exception("User no encontrado en deleteUser -"+this.getClass().getName()));
+				.orElseThrow(() -> new Exception("Usuario no encontrado en deleteEvaluacion -"+this.getClass().getName()));
 
 		evaluacionRepository.delete(evaluacion);
 	}
 	
 	
-	private boolean isLoggedUserADMIN() {
+	/*private boolean isLoggedUserADMIN() {
 		//Obtener el usuario logeado
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -110,7 +108,7 @@ public class EvaluacionServiceImpl implements EvaluacionService{
 					.orElse(null); 
 		}
 		return roles != null ? true : false;
-	}
+	}*/
 	
 	public User getLoggedUser() throws Exception {
 		//Obtener el usuario logeado

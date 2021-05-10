@@ -9,8 +9,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import com.sedmuc.init.entitys.Evaluacion;
 import com.sedmuc.init.repository.AreaRepository;
 import com.sedmuc.init.service.EvaluacionService;
@@ -32,11 +32,11 @@ public class EvaluacionController {
 	 * Alta de evaluacion
 	 */
 	@GetMapping("/evaluacionForm")
-	public String getUserEvaluacion(Model model) {
+	public String getEvaluacionForm(Model model) {
 		model.addAttribute("evaluacionForm", new Evaluacion());
 		//model.addAttribute("areas",areaRepository.findAll());
 		//model.addAttribute("roles",roleRepository.findAll());
-		//model.addAttribute("userLogeado", evaluacionService.findOneByUsername("agomez"));
+		//model.addAttribute("userLogeado", evaluacionService.findOneByUsername('agomez');
 		//Trae las Evaluacion que lugo utiliza la lista
 		model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
 		model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
@@ -72,7 +72,82 @@ public class EvaluacionController {
 			model.addAttribute("evaluacionList",evaluacionService.getAllEvaluaciones());
 			model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
 			model.addAttribute("listaEstados", evaluacionService.findAllEvaluacion_Estado());
+			
+			
 			return "evaluacion-form/evaluacion-view";
 	}
+	
+	/*
+	 * Utilizado en la edicion de datos de la evaluacion
+	 */
+	@GetMapping("/editEvaluacion/{id}")
+	public String getEditEvaluacion(Model model, @PathVariable(name="id") Long id) throws Exception {
+		Evaluacion evaluacion = evaluacionService.getEvaluacionById(id);
+		model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
+		model.addAttribute("evaluacionForm", evaluacion);
+		model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
+		model.addAttribute("listaEstados", evaluacionService.findAllEvaluacion_Estado());
+		model.addAttribute("formTab","active");//Activa el tab del formulario.
+		model.addAttribute("editMode",true);//parametro de edicion
+		
+		
+		return "evaluacion-form/evaluacion-view";
+	}
+	
+	/*
+	 * Utilizado en la edicion de la evaluacion al enviar a grabar
+	 */
+	@PostMapping("/editEvaluacion")
+	public String postEditUserForm(@Valid @ModelAttribute("evaluacionForm")Evaluacion evaluacion, BindingResult result, ModelMap model) {
+		if(result.hasErrors()) {
+			model.addAttribute("evaluacionForm", evaluacion);
+			model.addAttribute("formTab","active");
+			model.addAttribute("editMode","true");
+		}else {
+			try {
+				evaluacionService.updateEvaluacion(evaluacion);
+				model.addAttribute("evaluacionForm", new Evaluacion());
+				model.addAttribute("listTab","active");
+			} catch (Exception e) {
+				model.addAttribute("formErrorMessage",e.getMessage());
+				model.addAttribute("evaluacionForm", evaluacion);
+				model.addAttribute("formTab","active");
+				model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
+				model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
+				model.addAttribute("listaEstados", evaluacionService.findAllEvaluacion_Estado());
+				model.addAttribute("editMode","true");
+		
+			}
+		}
+		
+		model.addAttribute("evaluacionList", evaluacionService.getAllEvaluaciones());
+		model.addAttribute("listaUsuarios", evaluacionService.findAllUsers());
+		model.addAttribute("listaEstados", evaluacionService.findAllEvaluacion_Estado());
+		return "evaluacion-form/evaluacion-view";
+		
+	}
+	
+	/*
+	 * Utilizado en el boton cacelar del usuario
+	 */
+	@GetMapping("/editEvaluacion/cancel")
+	public String cancelEditEvaluacion(ModelMap model) {
+		return "redirect:/evaluacionForm";
+	}
+	
+	/*
+	 * Utilizado en el boton eliminar Evaluacion
+	 */
+	@GetMapping("/deleteEvaluacion/{id}")
+	public String deleteEvaluacion(Model model, @PathVariable(name="id") Long id) {
+		try {
+			evaluacionService.deleteEvaluacion(id);
+		} catch (Exception e) {
+			model.addAttribute("deleteError","La evaluacion no pudo ser eliminada.");
+		}
+		return getEvaluacionForm(model);
+	}
+
+
 	
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.sedmuc.init.dto.ChangePasswordForm;
 import com.sedmuc.init.entitys.User;
-import com.sedmuc.init.repository.AreaRepository;
 import com.sedmuc.init.repository.UserRepository;
 
 @Service

@@ -1,6 +1,6 @@
 <div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
 
-<form id="userForm" th:object="${evaluacionForm}" th:action="${editMode} ?@{/editUser} :@{/evaluacionForm}" method="post" class="form" role="form" >
+<form id="userForm" th:object="${evaluacionForm}" th:action="${editMode} ?@{/editEvaluacion} :@{/evaluacionForm}" method="post" class="form" role="form" >
 
 <!--Es necesario para poder pasar la validacion del Model en el caso de la edicion-->
 	<input class="form-control" type=hidden name="password" value="xxxx" th:if="${editMode}">
@@ -45,6 +45,14 @@
 		
 	</div>
 	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Observaciones</label>
+		<div class="col-lg-9">
+			<textarea class="form-control" aria-label="With textarea" th:field="${evaluacionForm.observaciones}" th:disabled="${disableFields}"  placeholder="Ingrese las observaciones de la evaluación"></textarea>
+			<div class="alert-danger" th:if="${#fields.hasErrors('observaciones')}" th:errors="*{observaciones}">Observaciones Error</div>
+			
+		</div>
+	</div>
+	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Nota Final</label>
 		<div class="col-lg-9">
 			<input class="form-control" type="text" th:field="${evaluacionForm.nota_final}" th:disabled="${disableFields}"  placeholder="De 1 a 100">
@@ -65,11 +73,11 @@
 	</div>
 	<div class="form-group row">
 		<div class="col-lg-12 text-center">
-			<input type="reset" class="btn btn-secondary" value="Cancel" th:if="${editMode==null or editMode==false}">
-			<a class="btn btn-secondary"  th:href="@{'/evaluaciontUser/cancel'}" th:if="${editMode}">Cancel</a>
+			<a class="btn btn-secondary"  th:href="@{'/editEvaluacion/cancel'}" >Salir</a>
 			<input type="submit" class="btn btn-primary"
-				value="Save Changes" th:value="${editMode}?'Grabar':'Crear'">
-		</div>
+				value="Save Changes" th:value="${editMode}?'Grabar':'Crear'" th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_EVALUADOR'',''ROLE_SUPERVISOR'')')}">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal" th:if="${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">Recurrir</button>
+			</div>
 	</div>
 	<div class="alert-primary" role="alert" th:if="${formMessageError}" th:text="${formMessageError}">Name Error</div>
 	<div class="alert alert-success text-center d-none" id="formSuccess" th:if="${editMode}" >Success MEssage</div>

@@ -5,14 +5,15 @@
 			<th scope="col">#</th>
 			<th scope="col">Secuencia</th>
 			<th scope="col">Evaluador</th>
-			<th scope="col">Supervisor</th>
+			<th scope="col">Evaluado</th>
 			<th scope="col">Nota</th>
 			<th scope="col">Estado</th>
 			<th></th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="evaluacion: ${evaluacionList}">
+		<!-- <tr th:each="evaluacion: ${evaluacionList}>" -->
+		<tr th:each="evaluacion: ${evaluacionList}" th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_EVALUADOR'',''ROLE_SUPERVISOR'')')}  or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==evaluacion.evaluado})">
 			<td th:text="${evaluacion.id}"></td>
 			<td th:text="${evaluacion.secuencia}"></td>
 			<td th:text="${evaluacion.evaluador}"></td>
@@ -24,13 +25,11 @@
 				<span th:case="'3'"><i class="fas fa-address-card"></i></span>
 				<span th:case="'4'"><i class="fas fa-frown"></i></span>
 				<span th:case="'5'"><i class="fas fa-id-card"></i></span>
-				
-				
 			<td>
-					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} )">
+					<span th:if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_EVALUADOR'',''ROLE_SUPERVISOR'')')}  or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==evaluacion.evaluado})">
 						<a href="#" th:href="@{'/editEvaluacion/'+ ${evaluacion.id}}"><i class="fas fa-edit"></i></a>
 					</span>
-					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
+					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or ${#authorization.expression('hasRole(''ROLE_EVALUADOR'')')}" >
 						<a href="#" th:onclick="'javascript:confirmDelete(\''+ ${evaluacion.id} +'\');'"><i class="fas fa-user-times"></i></a>
 					</span>
 			</td>
@@ -47,8 +46,8 @@ function confirmDelete(id){
 	$("#userIdHiddenInput").val(id);
 }
 
-function deleteUser(){
+function deleteEvaluacion(){
 	var id = $("#userIdHiddenInput").val();
-    window.location = "deleteUser/"+id;
+    window.location = "deleteEvaluacion/"+id;
 }
 </script>

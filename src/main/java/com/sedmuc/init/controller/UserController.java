@@ -92,7 +92,7 @@ public class UserController {
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userForm", user);
 		model.addAttribute("formTab","active");//Activa el tab del formulario.
-		model.addAttribute("editMode",true);//Mira siguiente seccion para mas informacion
+		model.addAttribute("editMode",true);//Parametro de edicion
 		model.addAttribute("passwordForm",new ChangePasswordForm(id));
 		
 		return "user-form/user-view";

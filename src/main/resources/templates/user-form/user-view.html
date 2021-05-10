@@ -44,13 +44,13 @@
 	<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
 		<ul class="nav nav-tabs justify-content-end">
 			<li class="nav-item">
-			<a class="nav-link" th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Usuarios</a>
+			<a class="nav-link" th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Vista Usuarios</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Nuevo Usuario</a>				   	
+			<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Usuario</a>				   	
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="#" th:href="@{/evaluacionForm}"><span>Evaluaciones </span> <span class="float-right"></span></a>				   	
+			<a class="nav-link" href="#" th:href="@{/evaluacionForm}"><span>Vista Evaluaciones </span> <span class="float-right"></span></a>				   	
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span> logout &nbsp</span><span class="float-right"><i class="fas fa-sign-out-alt"></i></span></a>				   	
